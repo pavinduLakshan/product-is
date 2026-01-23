@@ -111,7 +111,7 @@ jobs:
           # Process the system prompt with variable substitution
           cd $PRODUCT_IS_PATH
           pwd
-          SYSTEM_PROMPT=$(envsubst < .github/claude/system_prompt.txt)
+          SYSTEM_PROMPT=$(envsubst < .github/skills/fix-documentation-issues/SKILL.md)
 
           # Save to GitHub env
           echo "SYSTEM_PROMPT<<EOF" >> $GITHUB_ENV
