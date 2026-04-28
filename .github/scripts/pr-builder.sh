@@ -4,10 +4,16 @@ OUTBOUND_AUTH_OIDC_REPO_CLONE_LINK=https://github.com/wso2-extensions/identity-o
 SCIM2_REPO=identity-inbound-provisioning-scim2
 SCIM2_REPO_CLONE_LINK=https://github.com/wso2-extensions/identity-inbound-provisioning-scim2.git
 
+# Define workflow branch (selected branch for the workflow run).
+# Prefer WORKFLOW_BRANCH (explicit), otherwise GITHUB_REF_NAME, otherwise "master".
+WORKFLOW_BRANCH=${WORKFLOW_BRANCH:-${GITHUB_REF_NAME:-master}}
+WORKFLOW_BRANCH=${WORKFLOW_BRANCH#refs/heads/}
+
 # Define all available tests.
 declare -a ALL_TESTS=(
     "is-tests-default-configuration"
     "is-test-rest-api"
+    "is-tests-saas-app-creation"
     "is-test-webhooks"
     "is-tests-scim2"
     "is-test-adaptive-authentication"
@@ -36,6 +42,12 @@ disable_tests() {
     # Convert comma-separated string to array.
     IFS=',' read -ra ENABLED_ARRAY <<< "$enabled_tests"
 
+    # If no tests specified, skip disabling and run all tests.
+    if [ ${#ENABLED_ARRAY[@]} -eq 0 ] || [ -z "${ENABLED_ARRAY[0]}" ]; then
+        echo "No enabled tests specified. Running all tests."
+        return
+    fi
+
     echo "Tests that will run:"
     printf '%s\n' "${ENABLED_ARRAY[@]}"
 
@@ -51,8 +63,7 @@ disable_tests() {
 # Function to get expected BUILD SUCCESS count based on enabled tests.
 get_expected_build_success_count() {
     local enabled_tests=$1
-    # If is-test-adaptive-authentication-nashorn is enabled, expect 17 BUILD SUCCESS messages.
-    if [[ "$enabled_tests" == *"is-test-adaptive-authentication-nashorn"* ]]; then
+    if [[ -z "$enabled_tests" || "$enabled_tests" == *"is-test-adaptive-authentication-nashorn"* ]]; then
         echo "17"
     else
         echo "1"
@@ -69,6 +80,7 @@ PR_LINK=${PR_LINK%/}
 JAVA_21_HOME=${JAVA_21_HOME%/}
 echo "    PR_LINK: $PR_LINK"
 echo "    JAVA 21 Home: $JAVA_21_HOME"
+echo "    WORKFLOW_BRANCH (product-is): $WORKFLOW_BRANCH"
 echo "::warning::Build ran for PR $PR_LINK"
 
 USER=$(echo $PR_LINK | awk -F'/' '{print $4}')
@@ -83,7 +95,7 @@ echo "=========================================================="
 echo "Cloning product-is"
 echo "=========================================================="
 
-git clone https://github.com/wso2/product-is product-is-$BUILDER_NUMBER
+git clone --branch "$WORKFLOW_BRANCH" --single-branch https://github.com/wso2/product-is product-is-$BUILDER_NUMBER
 
 disable_tests "$ENABLED_TESTS"
 
@@ -150,7 +162,7 @@ else
   echo ""
   echo "Determining dependency version property key..."
   echo "=========================================================="
-  wget https://raw.githubusercontent.com/wso2/product-is/master/.github/scripts/version_property_finder.py
+  wget https://raw.githubusercontent.com/wso2/product-is/$WORKFLOW_BRANCH/.github/scripts/version_property_finder.py
   VERSION_PROPERTY=$(python version_property_finder.py $REPO product-is-$BUILDER_NUMBER 2>&1)
   VERSION_PROPERTY_KEY=""
   if [ "$VERSION_PROPERTY" != "invalid" ]; then
@@ -183,8 +195,15 @@ else
       echo ""
       echo "Checking out for 5.5.x branch in carbon-analytics-common..."
       echo "=========================================================="
-      git checkout 5.5.x
+  else
+    if [ "$WORKFLOW_BRANCH" = "next" ]; then
+      echo ""
+      echo "Checking out for next branch..."
+      echo "=========================================================="
+      git checkout next
+    fi
   fi
+
   DEPENDENCY_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
   echo "Dependency Version: $DEPENDENCY_VERSION"
   echo ""

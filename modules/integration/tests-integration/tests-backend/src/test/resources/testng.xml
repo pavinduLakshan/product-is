@@ -47,7 +47,6 @@
             <class name="org.wso2.identity.integration.test.scim.SCIMServiceProviderUserTestCase"/>
             <class name="org.wso2.identity.integration.test.scim.SCIMServiceProviderGroupTestCase"/>
             <class name="org.wso2.identity.integration.test.application.mgt.ImportExportServiceProviderTest"/>
-            <class name="org.wso2.identity.integration.test.application.mgt.ApplicationTemplateMgtTestCase"/>
             <!--<class name="org.wso2.identity.integration.test.application.mgt.DefaultAuthSeqManagementTestCase"/>-->
             <class name="org.wso2.identity.integration.test.user.account.connector.UserAccountConnectorTestCase"/>
             <class name="org.wso2.identity.integration.test.AuthenticationAdminTestCase"/>
@@ -189,8 +188,10 @@
             <class name="org.wso2.identity.integration.test.apiAuthorization.APIResourceInheritanceTestCase"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.workflow.v1.WorkflowSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.workflow.v1.WorkflowFailureTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.workflow.v1.WorkflowRulesTest"/>  
             <class name="org.wso2.identity.integration.test.inheritance.ConfigInheritanceTestCase"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.configs.v1.compatibilitysettings.CompatibilitySettingsDeploymentConfigTest"/>
+            <class name="org.wso2.identity.integration.test.oauth2.EnhancedOrgAuthenticationDirectPathTestCase"/>
         </classes>
     </test>
 
@@ -254,7 +255,6 @@
             <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationManagementSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationManagementFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationImportExportTest"/>
-            <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationPatchTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationManagementSAMLSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationManagementOAuthSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationManagementOAuthFailureTest"/>
@@ -313,6 +313,9 @@
             <class name="org.wso2.identity.integration.test.rest.api.server.rules.metadata.v1.RulesMetadataSuccessTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.rules.metadata.v1.RulesMetadataFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v1.UserSharingSuccessTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v1.UserSharingFailureTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v2.UserSharingSuccessTest"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.user.sharing.management.v2.UserSharingFailureTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.flow.management.v1.FlowManagementPositiveTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.flow.management.v1.FlowManagementNegativeTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.server.flow.execution.v1.FlowExecutionPositiveTest"/>
@@ -322,12 +325,12 @@
         </classes>
     </test>
 
-<!--    <test name="is-test-session-mgt" preserve-order="true" parallel="false" group-by-instances="true">-->
-<!--        <classes>-->
-<!--            <class name="org.wso2.identity.integration.test.rest.api.server.session.SessionMgtTest"/>-->
-<!--            <class name="org.wso2.identity.integration.test.rest.api.server.session.SessionMgtFailureTest"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+   <test name="is-test-session-mgt" preserve-order="true" parallel="false" group-by-instances="true">
+       <classes>
+           <class name="org.wso2.identity.integration.test.rest.api.server.session.SessionMgtTest"/>
+           <class name="org.wso2.identity.integration.test.rest.api.server.session.SessionMgtFailureTest"/>
+       </classes>
+   </test>
 
     <test name="is-test-webhooks" preserve-order="true" parallel="false">
         <classes>
@@ -445,6 +448,7 @@
             <class name="org.wso2.identity.integration.test.oauth2.OAuth2TokenExchangeGrantTypeTestCase"/>
             <class name="org.wso2.identity.integration.test.oauth2.FederatedTokenSharingTestCase"/>
             <class name="org.wso2.identity.integration.test.oauth2.FederatedTokenSharingIDPConfigDisabledTestCase"/>
+            <class name="org.wso2.identity.integration.test.saml.SAMLFederationWithKeyRotationTestCase"/>
         </classes>
     </test>
 
@@ -522,7 +526,9 @@
             <class name="org.wso2.identity.integration.test.organizationDiscovery.OrganizationDiscoveryTestCase"/>
             <class name="org.wso2.identity.integration.test.recovery.UsernameRecoveryTestCase"/>
             <class name="org.wso2.identity.integration.test.oauth2.OAuth2ServiceResourceOwnerLockedTestCase"/>
+            <class name="org.wso2.identity.integration.test.oauth2.OAuth2AuthorizationForSubOrgAppsWithMultiTenancyPathsTestCase"/>
             <class name="org.wso2.identity.integration.test.oauth2.OAuth2AuthorizationForSubOrganizationAppsTestCase"/>
+            <class name="org.wso2.identity.integration.test.oidc.OIDCNonPersistentAccessTokenTest"/>
         </classes>
     </test>
 
@@ -545,6 +551,14 @@
             <class name="org.wso2.identity.integration.test.rest.api.user.password.v1.PasswordUpdateValidationTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.user.password.v1.PasswordUpdateActionTest"/>
             <class name="org.wso2.identity.integration.test.rest.api.user.password.v1.PasswordUpdateWebhookTest"/>
+        </classes>
+    </test>
+
+    <test name="is-tests-saas-app-creation" preserve-order="true" parallel="false" group-by-instances="true">
+        <classes>
+            <class name="org.wso2.identity.integration.test.application.mgt.SaasAppCreationInitializerTestCase"/>
+            <class name="org.wso2.identity.integration.test.application.mgt.ApplicationTemplateMgtTestCase"/>
+            <class name="org.wso2.identity.integration.test.rest.api.server.application.management.v1.ApplicationPatchTest"/>
         </classes>
     </test>
 </suite>
