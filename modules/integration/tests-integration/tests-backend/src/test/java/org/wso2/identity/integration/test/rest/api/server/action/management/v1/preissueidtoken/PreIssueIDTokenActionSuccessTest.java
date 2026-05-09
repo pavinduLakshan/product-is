@@ -43,6 +43,7 @@ import java.util.HashMap;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.hasKey;
 
 /**
@@ -101,7 +102,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)));
 
         testActionId = responseOfPost.getBody().jsonPath().getString("id");
     }
@@ -142,7 +145,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)));
     }
 
     @Test(dependsOnMethods = {"testGetActionByActionId"})
@@ -192,7 +197,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_UPDATED_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.API_KEY.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_APIKEY_HEADER_AUTH_PROPERTY,
+                        equalTo(TEST_APIKEY_HEADER_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_APIKEY_VALUE_AUTH_PROPERTY)));
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingAllProperties"})
@@ -215,7 +222,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_UPDATED_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.API_KEY.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_APIKEY_HEADER_AUTH_PROPERTY,
+                        equalTo(TEST_APIKEY_HEADER_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_APIKEY_VALUE_AUTH_PROPERTY)));
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingName"})
@@ -239,7 +248,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.API_KEY.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_APIKEY_HEADER_AUTH_PROPERTY,
+                        equalTo(TEST_APIKEY_HEADER_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_APIKEY_VALUE_AUTH_PROPERTY)));
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingEndpoint"})
@@ -268,7 +279,7 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BEARER.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_ACCESS_TOKEN_AUTH_PROPERTY, nullValue());
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingAuthentication"})
@@ -297,7 +308,7 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BEARER.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_ACCESS_TOKEN_AUTH_PROPERTY, nullValue());
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingAuthenticationProperties"})
@@ -323,7 +334,7 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BEARER.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_ACCESS_TOKEN_AUTH_PROPERTY, nullValue())
                 .body("endpoint.allowedHeaders", equalTo(Arrays.asList("user-agent", "host")))
                 .body("endpoint.allowedParameters", equalTo(Arrays.asList("redirect_uri", "scope")));
     }
@@ -356,7 +367,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_UPDATED_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)));
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingEndpointUriAndAuthentication"})
@@ -387,7 +400,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)));
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)));
     }
 
     @Test(dependsOnMethods = {"testUpdateActionUpdatingEndpointUriAndAuthenticationProperties"})
@@ -418,7 +433,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("rule.condition", equalTo("OR"))
                 .body("rule.rules[0].condition", equalTo("AND"))
                 .body("rule.rules[0].expressions[0].field", equalTo("application"))
@@ -460,7 +477,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("rule.condition", equalTo("OR"))
                 .body("rule.rules[0].condition", equalTo("AND"))
                 .body("rule.rules[0].expressions[0].field", equalTo("application"))
@@ -497,7 +516,9 @@ public class PreIssueIDTokenActionSuccessTest extends PreIssueIDTokenTestBase {
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("$", not(hasKey("rule")));
     }
 

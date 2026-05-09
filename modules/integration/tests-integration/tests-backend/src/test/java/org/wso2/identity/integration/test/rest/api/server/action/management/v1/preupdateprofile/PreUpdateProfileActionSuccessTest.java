@@ -105,7 +105,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_ATTRIBUTES.toArray()));
 
         testActionId = responseOfPost.getBody().jsonPath().getString("id");
@@ -147,7 +149,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_ATTRIBUTES.toArray()));
     }
 
@@ -199,7 +203,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_UPDATED_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.API_KEY.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_APIKEY_HEADER_AUTH_PROPERTY,
+                        equalTo(TEST_APIKEY_HEADER_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_APIKEY_VALUE_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -224,7 +230,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_UPDATED_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.API_KEY.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_APIKEY_HEADER_AUTH_PROPERTY,
+                        equalTo(TEST_APIKEY_HEADER_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_APIKEY_VALUE_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -249,7 +257,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.API_KEY.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_APIKEY_HEADER_AUTH_PROPERTY,
+                        equalTo(TEST_APIKEY_HEADER_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_APIKEY_VALUE_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -279,7 +289,7 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BEARER.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_ACCESS_TOKEN_AUTH_PROPERTY, nullValue())
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -309,7 +319,7 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BEARER.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_ACCESS_TOKEN_AUTH_PROPERTY, nullValue())
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -341,7 +351,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_UPDATED_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -373,7 +385,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_UPDATED_ATTRIBUTES.toArray()));
     }
 
@@ -398,7 +412,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", containsInAnyOrder(TEST_ATTRIBUTES.toArray()));
     }
 
@@ -423,7 +439,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_UPDATED_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", equalTo(Collections.singletonList(TEST_DUPLICATED_ATTRIBUTES.get(0))));
     }
 
@@ -505,7 +523,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", not(hasKey(ATTRIBUTES)));
 
         deleteAction(PRE_UPDATE_PROFILE_PATH, responseOfPost.getBody().jsonPath().getString("id"));
@@ -581,7 +601,9 @@ public class PreUpdateProfileActionSuccessTest extends PreUpdateProfileTestBase 
                 .body("status", equalTo(TEST_ACTION_INACTIVE_STATUS))
                 .body("endpoint.uri", equalTo(TEST_ENDPOINT_URI))
                 .body("endpoint.authentication.type", equalTo(AuthenticationType.TypeEnum.BASIC.toString()))
-                .body("endpoint.authentication", not(hasKey(TEST_PROPERTIES_AUTH_ATTRIBUTE)))
+                .body("endpoint.authentication.properties." + TEST_USERNAME_AUTH_PROPERTY,
+                        equalTo(TEST_USERNAME_AUTH_PROPERTY_VALUE))
+                .body("endpoint.authentication.properties", not(hasKey(TEST_PASSWORD_AUTH_PROPERTY)))
                 .body("attributes", equalTo(Collections.singletonList(TEST_DUPLICATED_ATTRIBUTES.get(0))));
 
         deleteAction(PRE_UPDATE_PROFILE_PATH , responseOfPost.getBody().jsonPath().getString("id"));

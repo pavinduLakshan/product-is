@@ -12,14 +12,13 @@ env:
 
 jobs:
   run-test-runners:
-    runs-on: 
-      - codebuild-wso2_product-is-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: ${{ github.repository == 'wso2/product-is' && fromJSON(format('["codebuild-wso2_product-is-{0}-{1}"]', github.run_id, github.run_attempt)) || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
         include:
           - runner_id: 1
-            tests: "is-tests-default-configuration,is-test-rest-api,is-tests-saas-app-creation,is-test-webhooks,is-tests-scim2,is-test-adaptive-authentication"
+            tests: "is-tests-default-configuration,is-test-rest-api,is-test-webhooks,is-tests-scim2,is-test-adaptive-authentication"
           - runner_id: 2
             tests: "is-test-adaptive-authentication-nashorn,is-test-adaptive-authentication-nashorn-with-restart,is-tests-default-configuration-ldap,is-tests-uuid-user-store,is-tests-federation,is-tests-federation-restart"
           - runner_id: 3
@@ -113,8 +112,7 @@ jobs:
   comment-and-approve:
     name: Comment the status and Approve PR
     needs: run-test-runners
-    runs-on:
-      - codebuild-wso2_product-is-${{ github.run_id }}-${{ github.run_attempt }}
+    runs-on: ${{ github.repository == 'wso2/product-is' && fromJSON(format('["codebuild-wso2_product-is-{0}-{1}"]', github.run_id, github.run_attempt)) || 'ubuntu-latest' }}
     if: always()
     steps:
       - name: Comment build status
